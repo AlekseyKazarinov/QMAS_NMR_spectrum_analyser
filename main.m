@@ -1,21 +1,20 @@
 clear;
 %clc;
-% version 10.2
+% version 1.0.2
 % Программа для аппроксимации квадриупольного MAS спектра на примере 23Na (I=3/2)
 % Определяются параметры спектра.
 
 
 %% НАЧАЛЬНЫЕ ПАРАМЕТРЫ/КОНСТАНТЫ - необходимы для старта подгонки
 file_name = 'id9117_93340_NaBiO3_23Na.023.001.1r_mod.txt'; % экспериментальный спектр
-checkout = 1;    % вкл/выкл (1/0) режим ручной отладки
+checkout = 0;    % вкл/выкл (1/0) режим ручной отладки
 
 % сотношения между интегральными интенсивностями линий (в сумме = 1):
-ratios = [0.384	0.616];
-%ratios = [0.42    0.50    0.08];
+ratios = [0.5	0.5];
 
 % Параметры линий:                        
-%   eta   - параметр асимметрии тензора ГЭП        
-%   Chi   - квадриупольная константа (MHz) 
+%   eta   - параметр асимметрии тензора ГЭП
+%   Chi   - квадриупольная константа (MHz)
 %   delta - сдвиг спектра, delta iso (ppm)
 %   sigma - ширина (дисп.)спектр. линии от отдельного монокристалла (Hz)
 %   gamma - параметр масштаба лоренцевой линии (Hz)
@@ -26,17 +25,10 @@ ratios = [0.384	0.616];
 % позиции. Порядок следования параметров для линий:
 % [eta, Chi, delta, sigma, gamma, alpha]
 
-params1 = [0    1.2590   12.0   80.0000   78.000         0];
-params2 = [0    1.511   13.0   80.0000   88.000         0];
-%params3 = [0    2.119    19.2060   80.0000  76.0000         0];
-
-% params1 = [0    1.2860   12.1000   80.0000   98.5000         0];
-% params2 = [0    1.5300   13.1000   80.0000   98.5000         0];
-% params3 = [0    2.2300    1.5000   80.0000  500.0000         0];
-% params4 = [0,  2.3,    6,   80,    76,     0];
+params1 = [0    1.300   11.0   80.0000   75.000        0];
+params2 = [0    1.5     12.8   80.0000   90.000        0];
 
 params = [params1; params2];
-
 
 
 % Дополнительные характеристики для 1-ой линии:
@@ -124,7 +116,7 @@ text(left_bound+1,1.0*intencity, ['eps = ' num2str(eps)] );
 text(left_bound+1,0.95*intencity, 'ratios:');
 text(left_bound+1,0.9*intencity, num2str(ratios));
 text(left_bound+1,0.8*intencity, p);
-text(left_bound+1,0.7*intencity, num2str(params(1:length(ratios),1:5)));
+text(left_bound+1,0.7*intencity, num2str(params(1:length(ratios),1:6)));
 
 hold off
 
@@ -145,7 +137,7 @@ hRatio = 1e-3;
 
 dEta = 1e-3;   % приращения в частных производных
 dChi = 1e-3;
-dDelta = 1e-2;
+dDelta = 1e-1;
 dSigma = 1;
 dGamma = 0.5;
 dAlpha = 1e-2;
@@ -172,21 +164,17 @@ for iter = 1:max_iter
     [params, eps, G_w] = stepLineParameter(1, 2, dChi, hChi, N, A, M, interval, params, ratios, j_coupling, J);
     [params, eps, G_w] = stepLineParameter(2, 2, dChi, hChi, N, A, M, interval, params, ratios, j_coupling, J);
 %    [params, eps, G_w] = stepLineParameter(3, 2, dChi, hChi, N, A, M, interval, params, ratios, j_coupling, J);
-%     [params, eps, G_w] = stepLineParameter(4, 2, dChi, hChi, N, A, M, interval, params, ratios, j_coupling, J);
 
     % варьируем delta (isotropic)
     [params, eps, G_w] = stepLineParameter(1, 3, dDelta, hDelta, N, A, M, interval, params, ratios, j_coupling, J);
     [params, eps, G_w] = stepLineParameter(2, 3, dDelta, hDelta, N, A, M, interval, params, ratios, j_coupling, J);
 %    [params, eps, G_w] = stepLineParameter(3, 3, dDelta, hDelta, N, A, M, interval, params, ratios, j_coupling, J);
-%     [params, eps, G_w] = stepLineParameter(4, 3, dDelta, hDelta, N, A, M, interval, params, ratios, j_coupling, J);
 
     % варьируем gamma
     if (common == 0)
         [params, eps, G_w] = stepLineParameter(1, 5, dGamma, hGamma, N, A, M, interval, params, ratios, j_coupling, J);
         [params, eps, G_w] = stepLineParameter(2, 5, dGamma, hGamma, N, A, M, interval, params, ratios, j_coupling, J);
 %        [params, eps, G_w] = stepLineParameter(3, 5, dGamma, hGamma, N, A, M, interval, params, ratios, j_coupling, J);
-%         [params, eps, G_w] = stepLineParameter(4, 5, dGamma, hGamma, N, A, M, interval, params, ratios, j_coupling, J);
-
     end
 
     % вдоль общих параметров для всех линий - sigma, gamma, alpha

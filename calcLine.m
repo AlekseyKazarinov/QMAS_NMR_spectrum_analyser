@@ -4,6 +4,11 @@ function [G_w] = calcLine(N, sp_mesh, M,interval, parameters, j_coupling, J)
 %   parameters - набор параметров дл€ данной линии, это массив вида:
 %       [eta, Chi, delta, sigma, gamma, alpha];
 
+% ѕараметры экспериментальной системы:
+    wL = 105.84; % MHz (Ћарморова частота)
+    I = 3/2;     % спин €дра (дл€ 23Na)
+
+
 %parameters
     eta = parameters(1);
     Chi = parameters(2);
@@ -20,10 +25,7 @@ function [G_w] = calcLine(N, sp_mesh, M,interval, parameters, j_coupling, J)
     w_min = sp_mesh(1,1);
     w_max = sp_mesh(N,1);
     my_pi = 3.14159265358979323846;
-    % “.к. 23Na:
-    wL = 105.84; % MHz
-    I = 3/2;     % спин €дра
-    wRef = 105.84; % MHz
+
     const = -1/(6*wL*1e6)*(3*Chi*1e6/(2*I*(2*I-1))).^2 .* (I*(I+1) - 3/4) ;
     %const = -2186; %3386.858187815424 - *около*точное значение
     dw = (w_max - w_min)/N;
@@ -33,7 +35,7 @@ function [G_w] = calcLine(N, sp_mesh, M,interval, parameters, j_coupling, J)
             phi = 2*my_pi*q/M;
             y = calcY(phi,mu,eta);
             w = const*y;
-            w_ppm = w/wRef;
+            w_ppm = w/wL;
             %index = calcIndex(w, w_min, w_max, N);
             index = floor((w_ppm - w_min)/dw);
             if (index <= 0)

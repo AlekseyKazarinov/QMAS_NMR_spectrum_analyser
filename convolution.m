@@ -1,6 +1,16 @@
 function [outputSpectrum] = convolution(inputSpectrum, sigma, gamma, alpha)
-%UNTITLED13 Summary of this function goes here
-%   Detailed explanation goes here
+% returns outputSpectrum which is a convolution result of inputSpectrum and 
+% bell-shaped line expressed by Lorenzian and Gaussian fuctions.
+% It is need for account of broadening phanomena for real spectum lines
+% from each monocrystal system composing polycrystal to be researched.
+
+% Input arguments:
+% 1) inputSpectum - original spectrum line to be fixed
+% 2) sigma - exponenta parameter for Gaussian
+% 3) gamma - broadening parameter for Lorenzian
+% 4) alpha - ratio between Gaussian and Lorenzian
+
+
     dW = inputSpectrum(2,1) - inputSpectrum(1,1);
     %leftW = inputSpectrum(1,1);
     %rightW = inputSpectrum(length(inputSpectrum),1);
@@ -17,8 +27,8 @@ function [outputSpectrum] = convolution(inputSpectrum, sigma, gamma, alpha)
     norm = norm ./ max(norm);
     outputSpectrum = zeros(length(inputSpectrum), 2);
     outputSpectrum(:,1) = inputSpectrum(:,1);
-    % т.к. операция conv (свёртка) увеличивает размер массива: n+k-1:
-    %inputSpectrum(round(n_width*k*0.5):length(inputSpectrum)-round(n_width*k*0.5), 2)'
+    % because convolunion operation increases size of the array: n+k-1:
+    % inputSpectrum(round(n_width*k*0.5):length(inputSpectrum)-round(n_width*k*0.5), 2)'
     outputSpectrum(:,2) = conv(inputSpectrum(round(n_width*k*0.5):length(inputSpectrum)-round(n_width*k*0.5), 2), norm);
 end
 

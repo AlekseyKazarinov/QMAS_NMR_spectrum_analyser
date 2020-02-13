@@ -1,7 +1,12 @@
 function [integral] = integrate(f, interval)
-%UNTITLED3 Summary of this function goes here
-%   f - input spectrum, interval = [a,b]
-%[L,R] = convertToIndices(interval, f);
+% just returns area under line given from function f on the interval.
+
+% Input arguments:
+% 1) f - input spectrum 
+% 2) interval = [a,b], where a and b are just numeric
+
+
+%[L,R] = convertToIndices(interval, f);  % deprecated operation
 L = interval(1);
 R = interval(2);
 dW = f(2,1) - f(1,1);

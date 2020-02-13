@@ -1,0 +1,14 @@
+function [index] = calcIndex(w, w_min, w_max, N)
+% returns index correspoding to a serial
+% number of section in which argument w gets into if space between w_min
+% and w_max is divided into N sections.
+    
+    % input arguments:
+    % - w
+
+    dw = (w_max - w_min)/N;
+    w_n = w - w_min;
+    n = floor(w_n/dw);
+    index = n;
+end
+

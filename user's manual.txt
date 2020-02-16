@@ -1,16 +1,16 @@
-		Порядок работы с программой:
-1. Скопировать исследуемый спектр в формате *.txt в этот каталог.
-2. Удалить шапку в файле спектра - чтобы остались только 2 столбца с числами.
-3. Задать в main.m начальные константы вручную, включая имя файла, установить checkout = 1. 
-4. Оценивая расхождение между рассчитанным спектром и эксприментальным, оценить 
-   новые значения начальных констант, вручную подкорректировать их.
-5. Повторять пункт 4 несколько раз (для облегчения автоподстройки).
-6. Запустить автоматическую подстройку, выставив параметр checkout = 0. 
+		The procedure for working with the program:
+1. Copy the spectrum under study in * .txt format to this directory.
+2. Delete the header in the spectrum file - so that only 2 columns with numbers remainи.
+3. Set initial constants in main.m manually, including the file name, set checkout = 1.
+4. Estimating the discrepancy between the calculated spectrum and the experimental one, 
+evaluate the new values of the initial constants and manually correct them.
+5. Repeat step 4 several times (to facilitate auto-tuning).
+6. Start automatic tuning by setting checkout = 0 parameter. 
 
-Примечание:
-Регулировка сходимости возможна через константы в соответствующем разделе 
-(строки около 90-100)
+Note:
+Convergence adjustment is possible through constants in the corresponding section.
+(lines about 90-100)
 
-copy.txt - исходный спектр
-mod.txt - грубо срезана линия
-mod1.txt - точно срезана линия (пропорционально своему весу)
+copy.txt - source spectrum (an example)
+mod.txt - roughly cut line
+mod1.txt - precisely cut the line (in proportion to its weight)

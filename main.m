@@ -11,7 +11,7 @@ clear;
 % Name of file containing experimental spectrum (by default this file 
 % expected to be in the same directory from which the program launch)
     file_name = 'id9117_93340_NaBiO3_23Na.023.001.1r_mod.txt'; 
-    checkout = 0;    % on/off (1/0) mode of manual debugging (or viewing)
+    checkout = 1;    % on/off (1/0) mode of manual debugging (or viewing)
 
 % Relation between integral intensities of spectum lines (sum of them = 1):
 	ratios = [0.5	0.5];
@@ -41,7 +41,7 @@ j_coupling = 0;         % J-coupling of 1H (0 - not existing, 1 - exists)
 J = 50;                 % value of splitting (Hz)
 
 
-% You may define that parameters are shared by all of lines
+% You may define that some of parameters are shared by all of lines
 common = 0; % (1/0) - enable mode of shared parameters
 sigma = 80;
 gamma = 70;
@@ -126,13 +126,13 @@ text(left_bound+1,0.7*intencity, num2str(params(1:length(ratios),1:6)));
 hold off
 
 if (checkout == 1)
-    stop   % IF MODE OF MANUAL DEBUGGING (or VIEWING) IS ENABLED
+    stop   % MODE OF MANUAL DEBUGGING (or VIEWING) IS ENABLED
 end
 
 
 
 %% SPECTRUM APPROXIMATION (fitting)
-hEta = 1e-3;  % steps by each parameters
+hEta = 1e-3;  % values of steps by each parameters
 hChi = 1e-2;
 hDelta = 1e-1;
 hSigma = 1;
@@ -140,7 +140,7 @@ hGamma = 1;
 hAlpha = 1e-2;
 hRatio = 1e-3;
 
-dEta = 1e-3;   % increases in derivations
+dEta = 1e-3;   % increases in partial derivatives
 dChi = 1e-3;
 dDelta = 1e-1;
 dSigma = 1;

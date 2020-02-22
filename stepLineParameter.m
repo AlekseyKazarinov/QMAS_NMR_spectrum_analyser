@@ -13,11 +13,11 @@ function [parameters, eps, G_w] = stepLineParameter(number_line, number, dValue,
 % 6) parameters - sets of parameters for all the components consisting 
 %                       the whole spectrum
 % 7) ratios - ratios between intencities of spectrum components
-% 8) j_coupling - 
-% 9) J - 
+% 8) j_coupling - a flag of j-coupling mode (may be 1 or 0 - on/off)
+% 9) J - the physical constant
     
 % Special implicit agrument:
-fast_mode = 1;  % (1/0) - on/of mode of fast gradient descent (
+fast_mode = 1;  % (1/0) - on/of mode of fast gradient descent 
                 % (in this case we just takes into accout sign of derivative)
     
                 
